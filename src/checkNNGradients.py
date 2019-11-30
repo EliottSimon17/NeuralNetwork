@@ -1,7 +1,7 @@
 import numpy as np
-from debugInitializeWeights import debugInitializeWeights
-from nnCostFunction import nnCostFunction
-from computeNumericalGradient import computeNumericalGradient
+from src.debugInitializeWeights import debugInitializeWeights
+from src.nnCostFunction import nnCostFunction
+from src.computeNumericalGradient import computeNumericalGradient
 
 def checkNNGradients(lambda_value=0):
     input_layer_size = 3

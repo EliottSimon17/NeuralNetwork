@@ -112,7 +112,7 @@ if show_examples:
 #  implement the gradient for the sigmoid function. You should complete the
 #  code in the sigmoidGradient.m file.
 #
-
+#print('Test of sigmoid gradient ',sigmoidGradient(0))
 print('Evaluating sigmoid gradient...')
 example = np.array([-15, -1, -0.5, 0, 0.5, 1, 15])
 g = sigmoidGradient(example)
@@ -161,7 +161,7 @@ lambda_value = 3
 checkNNGradients(lambda_value)
 
 # Also output the costFunction debugging values
-debug_J  = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, 
+debug_J  = nnCostFunction(nn_params, input_layer_size, hidden_layer_size,
                           num_labels, X, y, lambda_value)
 
 print('Cost at (fixed) debugging parameters (w/ lambda = 10): ',  debug_J[0][0], 
@@ -189,7 +189,7 @@ lambda_value = 1
 # Create "short hand" for the cost function to be minimized
 y = np.expand_dims(y, axis=1)
 
-costFunction = lambda p : nnCostFunction(p, input_layer_size, hidden_layer_size, 
+costFunction = lambda p : nnCostFunction(p, input_layer_size, hidden_layer_size,
                                          num_labels, X, y, lambda_value)
 
 # Now, costFunction is a function that takes in only one argument (the

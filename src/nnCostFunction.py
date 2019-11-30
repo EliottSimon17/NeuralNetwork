@@ -1,6 +1,7 @@
 import numpy as np
-from sigmoid import sigmoid
-from sigmoidGradient import sigmoidGradient
+
+from src.sigmoid import sigmoid
+from src.sigmoidGradient import sigmoidGradient
 
 def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_value):
 #NNCOSTFUNCTION Implements the neural network cost function for a two layer
@@ -24,11 +25,13 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
 
 # Setup some useful variables
     m = np.shape(X)[0]
-
 # Computation of the Cost function including regularisation
-# Feedforward 
-    a2 = sigmoid(np.dot(np.hstack((np.ones((m, 1)), X)), np.transpose(Theta1)))
-    a3 = sigmoid(np.dot(np.hstack((np.ones((m, 1)), a2)), np.transpose(Theta2)))
+# Feedforward
+    step1 = np.hstack((np.ones((m, 1)), X))
+    a2 = sigmoid(np.dot(step1, np.transpose(Theta1)))
+    step2 = np.hstack((np.ones((m, 1)), a2))
+    a3 = sigmoid(np.dot(step2, np.transpose(Theta2)))
+    print (a3)
 
     # Cost function for Logistic Regression summed over all output nodes
     Cost = np.empty((num_labels, 1))
@@ -71,11 +74,31 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
 # Hint: It is recommended implementing backpropagation using a for-loop
 #       over the training examples if you are implementing it for the 
 #       first time.
-#
 
+    array = []
+    sigm = []
+    # Loops over the training set
+    for i in range(m):
+        for k in range(num_labels):
+            # which examples fit this label
+            y_binary = y[k] == k
+            #Calculate delta 3 , (the output error)
+            hk3 = a3[i, k] - y_binary
+        #Calculate the hidden layer error.
+       # print('Sigm ', np.transpose(sigmoidGradient([1, a2[i, :]])))
+        array.append(1)
+        array.append(a2[i,:])
+        hk2 = np.dot(np.transpose(hk3),(np.transpose(Theta2)))
 
+        for m in range(len(array)):
+            sigmval = sigmoidGradient(array[m])
+            sigm.append(sigmval)
+        hk2 = np.dot(hk2, np.transpose(sigm))
+        #delta2 = np.transpose(Theta2).dotnp.transpose(sigmoidGradient(np.concatenate((np.transpose(fX), f1))))
+        hk2 = hk2[1:]
 
-
+        Theta1_grad = Theta1_grad + np.dot(hk2,step1[i,:])
+        Theta2_grad += np.transpose(hk3) * step2[i,:]
 
 # -------------------------------------------------------------
 

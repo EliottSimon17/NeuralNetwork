@@ -1,6 +1,5 @@
 import numpy as np
-
-from sigmoid import sigmoid
+from src.sigmoid import sigmoid
 
 def predict(Theta1, Theta2, X):
 #PREDICT Predict the label of an input given a trained neural network
@@ -13,6 +12,11 @@ def predict(Theta1, Theta2, X):
 # You need to return the following variables correctly 
     p = np.zeros(m);
 
+
+    #theta1 = sigmoid(np.dot(m, Theta1))
+    #theta2 = sigmoid(np.dot(theta1, Theta2))
+
+    #p = max(theta2, [], 2)
 # ====================== YOUR CODE HERE ======================
 # Instructions: Complete the following code to make predictions using
 #               your learned neural network. You should set p to a 
@@ -22,9 +26,6 @@ def predict(Theta1, Theta2, X):
 #       function can also return the index of the max element, for more
 #       information see 'help max'. If your examples are in rows, then, you
 #       can use max(A, [], 2) to obtain the max for each row.
-#
-
-
 
     return p
 
