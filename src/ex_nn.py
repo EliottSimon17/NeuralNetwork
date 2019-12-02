@@ -50,7 +50,7 @@ m, _ = np.shape(X)
 sel = np.random.choice(range(X.shape[0]), 100)
 sel = X[sel,:]
 
-displayData(sel)
+#displayData(sel)
 
 
 input('Program paused. Press enter to continue')
@@ -164,7 +164,7 @@ checkNNGradients(lambda_value)
 debug_J  = nnCostFunction(nn_params, input_layer_size, hidden_layer_size,
                           num_labels, X, y, lambda_value)
 
-print('Cost at (fixed) debugging parameters (w/ lambda = 10): ',  debug_J[0][0], 
+print('Cost at (fixed) debugging parameters (w/ lambda = 10): ',  debug_J[0][0],
       '(this value should be about 0.576051)')
 
 input('Program paused. Press enter to continue')
