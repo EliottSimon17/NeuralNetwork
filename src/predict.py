@@ -26,7 +26,11 @@ def predict(Theta1, Theta2, X):
 #       function can also return the index of the max element, for more
 #       information see 'help max'. If your examples are in rows, then, you
 #       can use max(A, [], 2) to obtain the max for each row.
+    firstTheta = sigmoid(np.dot(np.hstack((np.ones((m, 1)), X)), np.transpose(Theta1)))
+    secondTheta = sigmoid(np.dot(np.hstack((np.ones((m,1)), firstTheta)), np.transpose(Theta2)))
 
-    return p
+    #print(np.hstack(np.amax(secondTheta, 1)))
+
+    return (np.argmax(secondTheta, axis = 1)+1)
 
 # =========================================================================

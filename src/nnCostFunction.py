@@ -1,3 +1,5 @@
+import numpy
+
 import numpy as np
 
 from src.sigmoid import sigmoid
@@ -31,7 +33,6 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
     a2 = sigmoid(np.dot(step1, np.transpose(Theta1)))
     step2 = np.hstack((np.ones((m, 1)), a2))
     a3 = sigmoid(np.dot(step2, np.transpose(Theta2)))
-    print (a3)
 
     # Cost function for Logistic Regression summed over all output nodes
     Cost = np.empty((num_labels, 1))
@@ -75,33 +76,36 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
 #       over the training examples if you are implementing it for the 
 #       first time.
 
-    array = []
-    sigm = []
+
     # Loops over the training set
     for i in range(m):
-        for k in range(num_labels):
+        array = []
+        sigm = []
+        hk3 = []
+        for k in range(1,num_labels+1):
             # which examples fit this label
-            y_binary = y[k] == k
+            y_binary = y[i] == k
             #Calculate delta 3 , (the output error)
-            hk3 = a3[i, k] - y_binary
+            print(a3[i,k-1])
+            hk3.append(a3[i, k-1] - y_binary)
         #Calculate the hidden layer error.
-       # print('Sigm ', np.transpose(sigmoidGradient([1, a2[i, :]])))
         array.append(1)
-        array.append(a2[i,:])
-        hk2 = np.dot(np.transpose(hk3),(np.transpose(Theta2)))
+        for j in range(len(a2[i,:])):
+            array.append(a2[i,:][j])
 
         for m in range(len(array)):
             sigmval = sigmoidGradient(array[m])
             sigm.append(sigmval)
-        hk2 = np.dot(hk2, np.transpose(sigm))
-        #delta2 = np.transpose(Theta2).dotnp.transpose(sigmoidGradient(np.concatenate((np.transpose(fX), f1))))
+        hk2 = (np.dot((np.transpose(Theta2)), np.reshape(np.transpose(hk3), (3, 1))))
+        hk2 = hk2 * np.reshape(np.transpose(sigm), (6,1))
         hk2 = hk2[1:]
 
-        Theta1_grad = Theta1_grad + np.dot(hk2,step1[i,:])
-        Theta2_grad += np.transpose(hk3) * step2[i,:]
+        Theta1_grad += np.dot(hk2,np.reshape(np.transpose(step1[i,:]), (1,4)))
+        Theta2_grad += np.dot(np.reshape(np.transpose(hk3), (3,1)), np.reshape(np.transpose(step2[i,:]), (1,6)))
 
 # -------------------------------------------------------------
-
+    Theta1_grad  = Theta1_grad/m
+    Theta2_grad  = Theta2_grad/m
 # =========================================================================
 
 # Unroll gradients

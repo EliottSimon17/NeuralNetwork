@@ -12,10 +12,9 @@ def randInitializeWeights(L_in, L_out):
 #
 
 # You need to return the following variables correctly 
-    W = np.zeros((L_out, 1 + L_in))
+   ## W = np.zeros((L_out, 1 + L_in))
     epsilon = 0.12
     W = 2*np.random.rand(L_out, 1 + L_in)*epsilon-epsilon
-    print(W)
 # =========================================================================
 
     return W
