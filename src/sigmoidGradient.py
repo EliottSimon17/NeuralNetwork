@@ -1,4 +1,4 @@
-from src.sigmoid import sigmoid
+from sigmoid import sigmoid
 
 def sigmoidGradient(z):
 #SIGMOIDGRADIENT returns the gradient of the sigmoid function
@@ -18,9 +18,6 @@ def sigmoidGradient(z):
 #Formula for the sigmoid gradient
 #     dg(𝑥) = g(𝑥)(1 − g(𝑥))
     g = sigmoid(z) * (1 - sigmoid(z))
-
-
-
 # =============================================================
-    
+
     return g

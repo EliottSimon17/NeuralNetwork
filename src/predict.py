@@ -1,5 +1,5 @@
 import numpy as np
-from src.sigmoid import sigmoid
+from sigmoid import sigmoid
 
 def predict(Theta1, Theta2, X):
 #PREDICT Predict the label of an input given a trained neural network

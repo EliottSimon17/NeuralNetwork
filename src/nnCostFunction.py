@@ -2,8 +2,8 @@ import numpy
 
 import numpy as np
 
-from src.sigmoid import sigmoid
-from src.sigmoidGradient import sigmoidGradient
+from sigmoid import sigmoid
+from sigmoidGradient import sigmoidGradient
 
 
 def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_value):
@@ -33,7 +33,6 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
     a1 = np.hstack((np.ones((m, 1)), X))
     z2 = np.dot(a1, np.transpose(Theta1))
     a2 = np.hstack((np.ones((m, 1)), sigmoid(z2)))
-    # step2 = np.hstack((np.ones((m, 1)), a2))
     z3 = np.dot(a2, np.transpose(Theta2))
     a3 = sigmoid(z3)
 
@@ -82,6 +81,7 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
 
     # Loops over the training set
     for i in range(m):
+        # create an empty array which will store every delta3 values
         d3 = []
         for k in range(1, num_labels + 1):
             # which examples fit this label
@@ -89,7 +89,7 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
             # Calculate delta 3 , (the output error)
             d3.append(a3[i, k - 1] - y_binary)
         # Calculate the hidden layer error.
-        d2 = np.dot((np.transpose(Theta2)), d3)
+        d2 = np.dot((np.transpose(Theta2)), d3).ravel()
         d2 = d2 * sigmoidGradient(np.append(1, z2[i]))
         d2 = d2[1:]
 
